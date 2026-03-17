@@ -1,5 +1,6 @@
-import { intro } from '@clack/prompts'
+import { intro, outro } from '@clack/prompts'
 import { createMain, defineCommand } from 'citty'
+import { isPackageExists } from 'local-pkg'
 import pc from 'picocolors'
 import { description, name, version } from '../package.json'
 
@@ -26,7 +27,9 @@ const command = defineCommand({
         },
     },
     run({ args }) {
-        console.log(args)
+        if (!isPackageExists('vue')) {
+            return outro('Installation for projects other than vue is not supported at this time')
+        }
     },
 })
 
