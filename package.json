@@ -46,7 +46,8 @@
         "defu": "^6.1.4",
         "find-up": "^8.0.0",
         "glob": "^13.0.1",
-        "jiti": "^2.6.1"
+        "jiti": "^2.6.1",
+        "tinyexec": "^1.0.4"
     },
     "devDependencies": {
         "@antfu/eslint-config": "^7.3.0",
