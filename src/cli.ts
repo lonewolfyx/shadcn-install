@@ -1,4 +1,6 @@
+import { intro } from '@clack/prompts'
 import { createMain, defineCommand } from 'citty'
+import pc from 'picocolors'
 import { description, name, version } from '../package.json'
 
 const command = defineCommand({
@@ -8,7 +10,12 @@ const command = defineCommand({
         description,
     },
     setup() {
-        console.log('Setup')
+        intro(
+            [
+                pc.yellow(`${name}`),
+                pc.dim(`v${version}`),
+            ].join(' '),
+        )
     },
     cleanup() {
         console.log('Cleanup')
