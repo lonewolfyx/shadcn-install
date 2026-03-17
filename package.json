@@ -1,0 +1,72 @@
+{
+    "name": "shadcn-install",
+    "type": "module",
+    "version": "0.0.0",
+    "packageManager": "pnpm@10.28.2",
+    "description": "Stop copying commands from the docs. A one-click CLI to batch install shadcn components instantly without browsing documentation.",
+    "author": "lonewolfyx <olddrivero.king@qq.com>",
+    "license": "MIT",
+    "homepage": "https://github.com/lonewolfyx/shadcn-install",
+    "bugs": {
+        "url": "https://github.com/lonewolfyx/shadcn-install/issues"
+    },
+    "keywords": [
+        "shadcn",
+        "shadcn-vue",
+        "shadcn-ui",
+        "install"
+    ],
+    "exports": {
+        ".": "./dist/cli.mjs",
+        "./package.json": "./package.json"
+    },
+    "types": "./dist/cli.d.mts",
+    "bin": {
+        "shadcn-install": "./bin/cli.js"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "dev": "tsdown --watch",
+        "build": "tsdown",
+        "lint": "eslint",
+        "lint:fix": "eslint --fix",
+        "prepublishOnly": "pnpm build",
+        "prepare": "simple-git-hooks",
+        "test": "vitest"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org",
+        "access": "public"
+    },
+    "dependencies": {
+        "@clack/prompts": "^1.0.0",
+        "citty": "^0.2.0",
+        "defu": "^6.1.4",
+        "find-up": "^8.0.0",
+        "glob": "^13.0.1",
+        "jiti": "^2.6.1"
+    },
+    "devDependencies": {
+        "@antfu/eslint-config": "^7.3.0",
+        "@lonewolfyx/tsconfig": "^0.0.6",
+        "@types/node": "^25.2.1",
+        "eslint": "^10.0.0",
+        "lint-staged": "^16.2.7",
+        "picocolors": "^1.1.1",
+        "simple-git-hooks": "^2.13.1",
+        "tsdown": "^0.20.3",
+        "tsdown-preset": "^1.0.3",
+        "tsx": "^4.21.0",
+        "typescript": "^5.9.3",
+        "vitest": "^4.1.0"
+    },
+    "simple-git-hooks": {
+        "pre-commit": "npx lint-staged",
+        "commit-msg": "node scripts/verify-commit.js"
+    },
+    "lint-staged": {
+        "*": "eslint --fix"
+    }
+}
