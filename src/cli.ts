@@ -17,9 +17,6 @@ const command = defineCommand({
             ].join(' '),
         )
     },
-    cleanup() {
-        console.log('Cleanup')
-    },
     args: {
         cwd: {
             type: 'string',
