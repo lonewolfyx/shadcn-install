@@ -41,12 +41,15 @@
         "access": "public"
     },
     "dependencies": {
+        "@antfu/ni": "^30.1.0",
         "@clack/prompts": "^1.0.0",
         "citty": "^0.2.0",
         "defu": "^6.1.4",
         "find-up": "^8.0.0",
         "glob": "^13.0.1",
         "jiti": "^2.6.1",
+        "local-pkg": "^1.1.2",
+        "mlly": "^1.8.2",
         "tinyexec": "^1.0.4"
     },
     "devDependencies": {
@@ -55,7 +58,6 @@
         "@types/node": "^25.2.1",
         "eslint": "^10.0.0",
         "lint-staged": "^16.2.7",
-        "local-pkg": "^1.1.2",
         "picocolors": "^1.1.1",
         "pkg-types": "^2.3.1",
         "simple-git-hooks": "^2.13.1",

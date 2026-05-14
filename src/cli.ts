@@ -1,7 +1,9 @@
+import { join } from 'node:path'
 import * as process from 'node:process'
-import { cancel, intro, isCancel, log, multiselect, outro, spinner } from '@clack/prompts'
+import { cancel, intro, isCancel, log, multiselect, outro, progress } from '@clack/prompts'
 import { createMain, defineCommand } from 'citty'
 import { isPackageExists } from 'local-pkg'
+import { createResolve, fileURLToPath } from 'mlly'
 import pc from 'picocolors'
 import { x } from 'tinyexec'
 import { resolveConfig } from '@/config.ts'
@@ -37,9 +39,13 @@ const command = defineCommand({
         }
 
         const config = await resolveConfig(args.cwd)
+
+        const ni = await createResolve({ url: import.meta.url })('@antfu/ni/package.json')
+        const nlx = join(fileURLToPath(new URL('.', ni)), 'bin/nlx.mjs')
+
         const installedComponents = await getSubDirectories(config.component)
 
-        log.success(`当前查阅到已安装 ${pc.red(installedComponents.length)} 个组件库 \n${pc.gray(installedComponents.join(','))}`)
+        log.success(`Found ${pc.red(installedComponents.length)} installed component(s): \n${pc.gray(installedComponents.join(', '))}`)
 
         const availableComponents = components.vue.filter(r => !installedComponents.includes(r.value))
 
@@ -58,18 +64,23 @@ const command = defineCommand({
             return process.exit(0)
         }
 
-        const s = spinner()
-        s.start('Installing components...')
-
-        console.log(['-y', 'shadcn-vue@latest', 'add', ...selectComponents])
-
-        await x('npx', ['-y', 'shadcn-vue@latest', 'add', ...selectComponents], {
-            nodeOptions: {
-                stdio: 'inherit',
-            },
+        const prog = progress({
+            indicator: 'timer',
+            style: 'block',
+            max: selectComponents.length,
         })
+        prog.start('Installing components...')
 
-        s.stop('Components installed successfully')
+        for (const component of selectComponents) {
+            await x('node', [nlx, 'shadcn-vue@latest', 'add', component], {
+                nodeOptions: {
+                    cwd: config.cwd,
+                },
+            })
+            prog.advance(1, `Installing ${component}...`)
+        }
+
+        prog.stop('Components installed successfully')
     },
 })
 
