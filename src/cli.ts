@@ -1,9 +1,12 @@
-import { cancel, intro, isCancel, multiselect, outro, spinner } from '@clack/prompts'
+import * as process from 'node:process'
+import { cancel, intro, isCancel, log, multiselect, outro, spinner } from '@clack/prompts'
 import { createMain, defineCommand } from 'citty'
 import { isPackageExists } from 'local-pkg'
 import pc from 'picocolors'
 import { x } from 'tinyexec'
+import { resolveConfig } from '@/config.ts'
 import { components } from '@/constant.ts'
+import { getSubDirectories } from '@/utils.ts'
 import { description, name, version } from '../package.json'
 
 const command = defineCommand({
@@ -33,14 +36,21 @@ const command = defineCommand({
             return outro('Installation for projects other than vue is not supported at this time')
         }
 
+        const config = await resolveConfig(args.cwd)
+        const installedComponents = await getSubDirectories(config.component)
+
+        log.success(`当前查阅到已安装 ${pc.red(installedComponents.length)} 个组件库 \n${pc.gray(installedComponents.join(','))}`)
+
+        const availableComponents = components.vue.filter(r => !installedComponents.includes(r.value))
+
         const selectComponents = await multiselect({
             message: 'Select components',
-            options: components.vue.map(r => ({
+            options: availableComponents.map(r => ({
                 value: r.value,
                 label: r.label,
                 hint: r.description,
             })),
-            initialValues: components.vue.map(r => r.value),
+            initialValues: availableComponents.map(r => r.value),
         })
 
         if (isCancel(selectComponents)) {
