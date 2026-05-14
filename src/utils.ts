@@ -1,14 +1,14 @@
-import { readdir } from 'node:fs/promises'
+import { basename } from 'node:path'
+import { glob } from 'glob'
 
 /**
- * 获取指定路径下的所有子文件夹名称
+ * Returns all subdirectory names under the given path
  */
 export async function getSubDirectories(sourcePath: string): Promise<string[]> {
-    const entries = await readdir(sourcePath, { withFileTypes: true })
-    return entries.reduce<string[]>((dirs, entry) => {
-        if (entry.isDirectory()) {
-            dirs.push(entry.name)
-        }
-        return dirs
-    }, [])
+    const paths = await glob('*', {
+        cwd: sourcePath,
+        absolute: true,
+    })
+
+    return paths.map(p => basename(p))
 }
