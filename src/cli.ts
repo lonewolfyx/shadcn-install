@@ -1,9 +1,10 @@
-import { join } from 'node:path'
+import { dirname } from 'node:path'
 import * as process from 'node:process'
+import { fileURLToPath } from 'node:url'
 import { cancel, intro, isCancel, log, multiselect, outro, progress } from '@clack/prompts'
 import { createMain, defineCommand } from 'citty'
 import { isPackageExists } from 'local-pkg'
-import { createResolve, fileURLToPath } from 'mlly'
+import { resolvePackageBin } from 'local-pkg-bin'
 import pc from 'picocolors'
 import { x } from 'tinyexec'
 import { resolveConfig } from '@/config.ts'
@@ -40,8 +41,9 @@ const command = defineCommand({
 
         const config = await resolveConfig(args.cwd)
 
-        const ni = await createResolve({ url: import.meta.url })('@antfu/ni/package.json')
-        const nlx = join(fileURLToPath(new URL('.', ni)), 'bin/nlx.mjs')
+        const { nlx } = await resolvePackageBin('@antfu/ni', {
+            paths: [dirname(fileURLToPath(import.meta.url))],
+        })
 
         const installedComponents = await getSubDirectories(config.component)
 
@@ -72,7 +74,7 @@ const command = defineCommand({
         prog.start('Installing components...')
 
         for (const component of selectComponents) {
-            await x('node', [nlx, 'shadcn-vue@latest', 'add', component], {
+            await x('node', [nlx as string, 'shadcn-vue@latest', 'add', component], {
                 nodeOptions: {
                     cwd: config.cwd,
                 },
