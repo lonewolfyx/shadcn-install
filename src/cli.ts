@@ -74,12 +74,12 @@ const command = defineCommand({
         prog.start('Installing components...')
 
         for (const component of selectComponents) {
+            prog.advance(1, `Installing ${component}...`)
             await x('node', [nlx as string, 'shadcn-vue@latest', 'add', component], {
                 nodeOptions: {
                     cwd: config.cwd,
                 },
             })
-            prog.advance(1, `Installing ${component}...`)
         }
 
         prog.stop('Components installed successfully')
