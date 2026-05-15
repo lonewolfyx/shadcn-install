@@ -1,7 +1,7 @@
 {
     "name": "shadcn-install",
     "type": "module",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "packageManager": "pnpm@10.28.2",
     "description": "Stop copying commands from the docs. A one-click CLI to batch install shadcn components instantly without browsing documentation.",
     "author": "lonewolfyx <olddrivero.king@qq.com>",
