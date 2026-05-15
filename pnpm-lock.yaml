@@ -32,6 +32,9 @@ importers:
       local-pkg:
         specifier: ^1.1.2
         version: 1.1.2
+      local-pkg-bin:
+        specifier: ^0.0.1
+        version: 0.0.1
       mlly:
         specifier: ^1.8.2
         version: 1.8.2
@@ -1567,6 +1570,9 @@ packages:
   listr2@9.0.5:
     resolution: {integrity: sha512-ME4Fb83LgEgwNw96RKNvKV4VTLuXfoKudAmm2lP8Kk87KaMK0/Xrx/aAkMWmT8mDb+3MlFDspfbCs7adjRxA2g==}
     engines: {node: '>=20.0.0'}
+
+  local-pkg-bin@0.0.1:
+    resolution: {integrity: sha512-XruLMqhZs5RvnsceoWTSBwnHldTDDCISPy6/I6vgKlLcIbznkFKEpxlgRmUiTn81RpReoM5dD7b1g+ySxxTq4A==}
 
   local-pkg@1.1.2:
     resolution: {integrity: sha512-arhlxbFRmoQHl33a0Zkle/YWlmNwoyt6QNZEIJcqNbdrsix5Lvc4HyyI3EnwxTYlZYc32EbYrQ8SzEZ7dqgg9A==}
@@ -3637,6 +3643,10 @@ snapshots:
       log-update: 6.1.0
       rfdc: 1.4.1
       wrap-ansi: 9.0.2
+
+  local-pkg-bin@0.0.1:
+    dependencies:
+      local-pkg: 1.1.2
 
   local-pkg@1.1.2:
     dependencies:
