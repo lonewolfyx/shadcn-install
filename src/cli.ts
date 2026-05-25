@@ -45,11 +45,17 @@ const command = defineCommand({
             paths: [dirname(fileURLToPath(import.meta.url))],
         })
 
+        console.log(nlx)
         const installedComponents = await getSubDirectories(config.component)
 
         log.success(`Found ${pc.red(installedComponents.length)} installed component(s): \n${pc.gray(installedComponents.join(', '))}`)
 
         const availableComponents = components.vue.filter(r => !installedComponents.includes(r.value))
+
+        if (!availableComponents.length) {
+            outro('No components available')
+            process.exit(1)
+        }
 
         const selectComponents = await multiselect({
             message: 'Select components',
