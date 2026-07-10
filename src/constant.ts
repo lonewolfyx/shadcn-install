@@ -23,8 +23,7 @@ export const components = {
         {
             label: 'Avatar',
             value: 'avatar',
-            description: 'An image element with a fallback for representing the user.\n'
-                + '\n',
+            description: 'An image element with a fallback for representing the user.',
         },
         {
             label: 'Badge',
