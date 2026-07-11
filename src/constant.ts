@@ -21,6 +21,11 @@ export const components = {
             description: 'Displays content within a desired ratio.',
         },
         {
+            label: 'Attachment',
+            value: 'attachment',
+            description: 'Displays a file or image attachment with media, metadata, upload state, and actions.',
+        },
+        {
             label: 'Avatar',
             value: 'avatar',
             description: 'An image element with a fallback for representing the user.',
@@ -34,6 +39,11 @@ export const components = {
             label: 'Breadcrumb',
             value: 'breadcrumb',
             description: 'Displays the path to the current resource using a hierarchy of links.',
+        },
+        {
+            label: 'Bubble',
+            value: 'bubble',
+            description: 'Displays conversational content in a message bubble. Supports variants, alignment, grouping, reactions, and collapsible content.',
         },
         {
             label: 'Button',
@@ -156,9 +166,24 @@ export const components = {
             description: 'Renders an accessible label associated with controls.',
         },
         {
+            label: 'Marker',
+            value: 'marker',
+            description: 'Displays an inline status, system note, bordered row, or labeled separator in a conversation.',
+        },
+        {
             label: 'Menubar',
             value: 'menubar',
             description: 'A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands.',
+        },
+        {
+            label: 'Message',
+            value: 'message',
+            description: 'Displays a message in a conversation, with optional avatar, header, footer, and alignment.',
+        },
+        {
+            label: 'Message Scroller',
+            value: 'message-scroller',
+            description: 'A scroll container for chat transcripts that anchors turns, follows streamed replies, restores prepended history, and jumps to messages.',
         },
         {
             label: 'Native Select',
